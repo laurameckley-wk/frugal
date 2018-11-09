@@ -14,6 +14,9 @@ import javax.jms.MessageConsumer;
 import javax.jms.Session;
 import java.util.Arrays;
 
+/**
+ * TODO.
+ */
 public class FJmsSubscriberTransport implements FSubscriberTransport {
     private static final Logger LOGGER = LoggerFactory.getLogger(FJmsSubscriberTransport.class);
 
@@ -29,6 +32,9 @@ public class FJmsSubscriberTransport implements FSubscriberTransport {
         this.session = session;
     }
 
+    /**
+     * TODO.
+     */
     public static class Factory implements FSubscriberTransportFactory {
         private final Session session;
 
@@ -50,11 +56,11 @@ public class FJmsSubscriberTransport implements FSubscriberTransport {
     @Override
     public void subscribe(String topic, FAsyncCallback callback) throws TException {
         // TODO test
-        if(isSubscribed()) {
+        if (isSubscribed()) {
             throw new TTransportException(TTransportException.ALREADY_OPEN, "jms client already subscribed");
         }
 
-        if(topic == null || "".equals(topic)) {
+        if (topic == null || "".equals(topic)) {
             throw new TTransportException("subscribe subject cannot be empty");
         }
 
@@ -93,7 +99,7 @@ public class FJmsSubscriberTransport implements FSubscriberTransport {
 
     @Override
     public void unsubscribe() {
-        if(!isSubscribed()) {
+        if (!isSubscribed()) {
             LOGGER.debug("jms transport already unsubscribed, returning");
             return;
         }

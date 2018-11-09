@@ -1,8 +1,8 @@
 package com.workiva.frugal.transport;
 
 import org.apache.thrift.transport.TTransportException;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
@@ -10,6 +10,9 @@ import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.Topic;
 
+/**
+ * TODO.
+ */
 public class FJmsPublisherTransport implements FPublisherTransport {
     private static final Logger LOGGER = LoggerFactory.getLogger(FJmsPublisherTransport.class);
 
@@ -24,6 +27,9 @@ public class FJmsPublisherTransport implements FPublisherTransport {
         this.session = session;
     }
 
+    /**
+     * TODO.
+     */
     public static class Factory implements FPublisherTransportFactory {
 
         private final Session session;
@@ -46,7 +52,7 @@ public class FJmsPublisherTransport implements FPublisherTransport {
     public void open() throws TTransportException {
         // TODO test
         // TODO right defaults?
-        if(isOpen()) {
+        if (isOpen()) {
             LOGGER.debug("jms transport already open, returning");
             return;
         }
@@ -60,7 +66,7 @@ public class FJmsPublisherTransport implements FPublisherTransport {
 
     @Override
     public void close() {
-        if(!isOpen()) {
+        if (!isOpen()) {
             LOGGER.debug("jms transport already closed, returning");
             return;
         }
@@ -84,11 +90,11 @@ public class FJmsPublisherTransport implements FPublisherTransport {
     @Override
     public void publish(String topic, byte[] payload) throws TTransportException {
         // TODO test
-        if(!isOpen()) {
+        if (!isOpen()) {
             throw new TTransportException(TTransportException.NOT_OPEN, "failed to publish, jms client not open");
         }
 
-        if(topic == null || "".equals(topic)) {
+        if (topic == null || "".equals(topic)) {
             throw new TTransportException("publish topic cannot be empty");
         }
 
